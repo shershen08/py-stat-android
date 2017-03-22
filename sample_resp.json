@@ -1,0 +1,22 @@
+response: {
+    "title": "page title",
+
+    "domain": {
+        "ns": "ns1.1gb.ru",
+        "ip": "123.123.34.35"
+    },
+    "sources": {
+        "css": ["http://okay.education/wp-content/themes/total/style.css?ver=1.0"],
+        "script":["http://okay.education/wp-content/themes/total/js/superfish.js?ver=20150903"],
+        "image": ["http://www.pro-zip.ru/test-tmp/okay-education/wordpress/wp-content/uploads/2017/02/business-q-g-1227-480-7.jpg"]
+    },
+    "meta": {
+        "<link rel='dns-prefetch'": [],
+        "<meta name='robots'": [],
+        "RSS": ""
+    },
+    "stats": {
+        "load_time": 23.3,
+        "weight": "1.56Mb"
+    }
+}
