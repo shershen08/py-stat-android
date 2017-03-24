@@ -10,35 +10,34 @@ def get_page(page_url):
     if(result.status_code == 200):
         return result.content, result
 
-def parse_result(item_content):
+def parse_result_json(item_content):
     soup = BeautifulSoup(item_content, "html.parser")
+    json_data = {}
 
-    print('\n images \n')
-    items_count = 0
-    for images_index, img in enumerate(soup.find_all('img')):
+    json_data['image'] = []
+    for img in soup.find_all('img'):
         if(img['src']):
-            items_count += 1
-            print(items_count, img['src'])
+            json_data['image'].append(img['src'])
     
-    print('\n styles \n')
-    items_count = 0
-    for styles_index, style in enumerate(soup.find_all('link')):
+    json_data['stylesheet'] = []
+    for style in soup.find_all('link'):
         if(style['rel'] == ['stylesheet'] and hasattr(style, 'href')):
-            items_count += 1
-            print(items_count, style['href'])
+            json_data['stylesheet'].append(style['href'])
     
-    print('\n scripts \n')
-    items_count = 0
-    for scripts_index, script in enumerate(soup.find_all('script')):
+    json_data['script'] = []
+    for script in soup.find_all('script'):
         try:
-            items_count += 1
-            print(items_count, script.attrs['src'])
+            json_data['script'].append(script.attrs['src'])
         except KeyError:
-            items_count -= 1
             pass
+    
+    return json_data
 
+def get_stats(resp):
+    print(resp)
+    return 42
 
-def get_size(item_url):
+def get_header(item_url):
     req = requests.get(item_url)
     req_header = req.headers
     print(req_header)
@@ -49,10 +48,22 @@ def get_size(item_url):
 
 # init
 
-url = "https://docs.python.org/3/tutorial/errors.html"
-cont, resp_object = get_page(url)
-total_time = resp_object.elapsed.total_seconds()
-print('time: ', total_time)
-parse_result(cont)
+def get_all(url="https://docs.python.org/3/tutorial/errors.html"):
+    cont, resp_object = get_page(url)
 
+    json_output = parse_result_json(cont)
+    json_output['total_time'] = resp_object.elapsed.total_seconds()
+    print(resp_object.__dict__.keys())
+    return json_output
+    #jj
+    #stats = get_stats(resp_object)
+    #print(json_output)
+
+
+if __name__ == "__main__":
+    print(get_all())
+
+# get all html
+#
+# soup = BeautifulSoup(cont, "html.parser")
 # print(soup.prettify())

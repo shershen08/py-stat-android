@@ -6,7 +6,7 @@ Tools:
 
 **Backend**
  - Heroku + Python 
- - Beautiful spup
+ - Beautiful soup
  - 3rd party services
  - JSON API
  
@@ -16,4 +16,4 @@ Tools:
 
  **Web app**
 
-  - Vuejs to display
+  - Polymer app or Vuejs to display
